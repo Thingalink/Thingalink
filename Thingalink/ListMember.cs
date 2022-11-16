@@ -1,4 +1,4 @@
-﻿namespace ThingalinkObject
+﻿namespace Thingalink
 {
     public sealed class ListMember : Speck
     {

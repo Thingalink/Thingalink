@@ -1,10 +1,10 @@
-﻿namespace ThingalinkObject
+﻿namespace Thingalink
 {
     public interface IReadable
     {
         object Object { get; }
     }
-
+    
     /// <summary>
     /// A Mote where contents are readily visible
     /// </summary>

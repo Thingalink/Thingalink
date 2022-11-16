@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ThingalinkObject
+namespace Thingalink
 {
     /// <summary>
     /// testing the thing is null is toxic. Always define the motes even if they will be empty
