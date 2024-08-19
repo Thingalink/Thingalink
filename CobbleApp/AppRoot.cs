@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using Thingalink;
+using System.Runtime.Remoting.Messaging;
 
 namespace CobbleApp
 {
@@ -53,8 +54,8 @@ namespace CobbleApp
 
             ContainerHost.SetHost(InitContainer());
 
-            ContainerHost.Draw();
-
+            //ContainerHost.Draw();
+            DrawControls();
             InitAppLoader();
         }
         public virtual void Sub()
@@ -92,21 +93,29 @@ namespace CobbleApp
         {
             return null;
         }
+        protected virtual void SplashReturn()
+        {
+            ContainerHost.SetHost(InitAppSpace());
+            ShowControls();
+            //ContainerHost.Draw();
+        }
 
         protected virtual ContainerZone InitAppSpace()
         {
-            var surf = new BitmapSurface(Screen.Rectangle);
-            surf.FillRect(new Paint(Color.Gainsboro), surf.Rectangle);
-            BackgroundImage = surf.Bitmap;
+           // var surf = new BitmapSurface(Screen.Rectangle);
+           // surf.FillRect(new Paint(Color.LimeGreen), surf.Rectangle);
+           // BackgroundImage = surf.Bitmap;
 
-            var r = Shaper.RightOf(Status.Instance.Rectangle);
-            return new ContainerZone(r.X, r.Y, Screen.Rectangle.Width - Status.Instance.Rectangle.Width, r.Height);
+            //check clear of splash content
+            Screen.FillBack(Color.LimeGreen);
+
+            var r = Status.Instance.Rectangle;
+            return new ContainerZone(r.Right, r.Y, Screen.Rectangle.Width - r.Width, r.Height);
         }
 
         protected virtual void InitAppLoader()
         {
             Loader = new WaitMule(LoadControls);
-
             StartChugThread();
             Sub();
         }

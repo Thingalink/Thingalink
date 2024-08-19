@@ -20,6 +20,10 @@ namespace Thingalink
             Value = c;
         }
     }
+
+    /// <summary>
+    /// provide pens and brushes for the windows
+    /// </summary>
     public class Paint : ColorValue
     {
         public delegate void PassPaint(Paint thing);
