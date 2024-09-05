@@ -25,7 +25,7 @@ namespace CobbleApp
             if (path != null)
                 Load(path);
             else
-                Load(new Bitmap(W, H, System.Drawing.Imaging.PixelFormat.Format32bppArgb));
+                Load(new Bitmap(Width, Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb));
 
         }
         public BitmapSurface(Bitmap bitmap, int x = 0, int y = 0) : base(x, y, bitmap.Width, bitmap.Height)
@@ -87,7 +87,13 @@ namespace CobbleApp
             DrawImage(bitmap, Rectangle, new Rectangle(240, 0, Rectangle.Width, Rectangle.Height));
         }
 
-
+        /// <summary>
+        /// this is actually slow one by one if you do many
+        /// todo: a bulk lock and paint all 
+        /// </summary>
+        /// <param name="bitmap"></param>
+        /// <param name="point"></param>
+        /// <param name="method"></param>
         public static void ModPixel(Bitmap bitmap, Point point, ModColor method)
         {
             var r = new Rectangle(point.X, point.Y, 1, 1);

@@ -12,12 +12,45 @@ namespace Thingalink
     {
         private new Color Value;
         public Color Color => Value;
-
+        
         //set requires brush clear(for change)
         public virtual void Set(Color c)
         {
             //any override will still need base call
             Value = c;
+        }
+        public void Set(int r, int g, int b)
+        {
+            Set(Color.FromArgb(Color.A, Conform(r), Conform(g), Conform(b)));
+        }
+        public void SetA(int a)
+        {
+            Set(Color.FromArgb(Conform(a), Color.R, Color.G, Color.B));
+        }
+        public void SetR(int r)
+        {
+            Set(Color.FromArgb(Color.A, Conform(r), Color.G, Color.B));
+        }
+        public void SetG(int g)
+        {
+            Set(Color.FromArgb(Color.A, Color.R, Conform(g), Color.B));
+        }
+        public void SetB(int b)
+        {
+            Set(Color.FromArgb(Color.A, Color.R, Color.G, Conform(b)));
+        }
+
+        public static int Conform(int v)
+        {
+            if (v < 0)
+            {
+                return 0;
+            }
+            if (v > 255)
+            {
+                return 255;
+            }
+            return v;
         }
     }
 
@@ -83,7 +116,6 @@ namespace Thingalink
 
         public Paint(int a, int r, int g, int b, int thick = 2) : this(Color.FromArgb(Conform(a), Conform(r), Conform(g), Conform(b)), thick)
         {
-            Thick = thick;
         }
         public Paint(Color o, int thick = 2) //: base(o)
         {
@@ -92,18 +124,7 @@ namespace Thingalink
             Thick = thick;
         }
 
-        public static int Conform(int v)
-        {
-            if (v < 0)
-            {
-                return 0;
-            }
-            if (v > 255)
-            {
-                return 255;
-            }
-            return v;
-        }
+        
 
         //internal Brush MakeBrush(Color paint)
         //{
@@ -135,26 +156,7 @@ namespace Thingalink
             else
                 base.Set(c);
         }
-        public void SetA(int a)
-        {
-            Set(Color.FromArgb(Conform(a), Color.R, Color.G, Color.B));
-        }
-        public void SetR(int r)
-        {
-            Set(Color.FromArgb(Color.A, Conform(r), Color.G, Color.B));
-        }
-        public void SetG(int g)
-        {
-            Set(Color.FromArgb(Color.A, Color.R, Conform(g), Color.B));
-        }
-        public void SetB(int b)
-        {
-            Set(Color.FromArgb(Color.A, Color.R, Color.G, Conform(b)));
-        }
-        public void Set(int r, int g, int b)
-        {
-            Set(Color.FromArgb(Color.A, Conform(r), Conform(g), Conform(b)));
-        }
+        
         public void SetAdd(int r, int g, int b)
         {
             Set(Color.FromArgb(Color.A, Conform(Color.R + r), Conform(Color.G + g), Conform(Color.B + b)));

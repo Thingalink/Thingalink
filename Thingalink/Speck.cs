@@ -11,6 +11,7 @@
     public class Speck : Mote, IReadable
     {
         public delegate object Pass(Speck speck);
+        public delegate void PassValue(object value);
 
         public object Object => base.Value;
 

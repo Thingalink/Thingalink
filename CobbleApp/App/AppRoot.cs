@@ -4,9 +4,11 @@ using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using Thingalink;
 using System.Runtime.Remoting.Messaging;
+using System.Diagnostics;
 
 namespace CobbleApp
 {
+
     public class AppRoot //: ContainerHost //: Form
     {
         public static AppRoot Instance;
@@ -18,17 +20,19 @@ namespace CobbleApp
 
         public Bitmap BackgroundImage;
 
+
         private TaskMule TaskMule;
         protected WaitMule Loader;
         public static ChugMule ChugMule;
         public Action ChugOnce;
 
-        protected ListHead EventList;
-        private ListHead ChugList;
+        protected ListHead SysEventHandlers;
+
+        //protected ListHead EventList;
+        //private ListHead ChugList;
 
         //ServiceList KeyEvents;
 
-        public bool Busy;
 
         public AppRoot(Form form)
         {
@@ -50,23 +54,41 @@ namespace CobbleApp
 
             Form.FormClosing += Form_FormClosing;
 
-            EventList = new ListHead();
+            MouseEventList.AppThreadList = new MouseEventList();
+            InitSysHandlers();
+
 
             ContainerHost.SetHost(InitContainer());
 
-            //ContainerHost.Draw();
-            DrawControls();
+            ContainerHost.Draw();
+            //DrawControls();
             InitAppLoader();
         }
+
+        protected virtual void InitSysHandlers()
+        {
+            SysEventHandlers = new ListHead();            
+            SysEventHandlers.Add(new FormRefreshHandler());
+            SysEventHandlers.Add(new MouseClickEventHandler());
+        }
+
         public virtual void Sub()
         {
-            Form.Move += Form_Refresh;
-            Form.ResizeEnd += Form_ResizeEnd;
+            SysEventHandlers.Iterate(HandlerSub);
+        }
+        private void HandlerSub(ListMember item)
+        {
+            ((SysEventHandler)item.Object).Sub();
+        }
 
-            Form.MouseDown += Form_MouseDown;
-            Form.MouseUp += Form_MouseUp;
-            Form.MouseClick += Form_MouseClick;
-            Form.MouseMove += Form_MouseMove;
+        public void OldSub()
+        {
+            //Form.Move += Form_Refresh;
+            //Form.ResizeEnd += Form_ResizeEnd;
+            //Form.MouseDown += Form_MouseDown;
+            //Form.MouseUp += Form_MouseUp;
+            //Form.MouseClick += Form_MouseClick;
+            //Form.MouseMove += Form_MouseMove;
 
             //KeyEvents = new ServiceList();
             //Form.KeyPress += Form_KeyPress;
@@ -108,11 +130,10 @@ namespace CobbleApp
 
             //check clear of splash content
             Screen.FillBack(Color.LimeGreen);
-
+            Status.Log("splash close.  default app doing nothing.");
             var r = Status.Instance.Rectangle;
             return new ContainerZone(r.Right, r.Y, Screen.Rectangle.Width - r.Width, r.Height);
         }
-
         protected virtual void InitAppLoader()
         {
             Loader = new WaitMule(LoadControls);
@@ -148,7 +169,7 @@ namespace CobbleApp
                 e.Cancel = true;
         }
 
-        protected virtual bool CanClose()
+        public virtual bool CanClose()
         {
             return true;
         }
@@ -175,61 +196,30 @@ namespace CobbleApp
 
             if (TaskMule == null)
             {
-                if (EventList.Count > 0)
+                if (MouseEventList.AppThreadList.HasEvent)
                 {
-                    ChugList = EventList;
-                    EventList = new ListHead();
-
-                    TaskMule = new ReadyMule(ChugEvents);
+                    TaskMule = MouseEventList.AppThreadList.StartTask();
                 }
                 else
                     ChugIdle();
             }
             else if (TaskMule.Done)
             {
-                if (Busy)
-                {
-                    Busy = false;
-                    Status.Log("UI Unlock");
-                }
+                MouseEventList.AppThreadList.ClearOverload();
 
                 ContainerHost.DrawUpdates();
                 ChugIdle();
                 TaskMule = null;
             }
-            else if (!Busy && EventList.Count > 500)
-            {
-                Busy = true;
-
-                Status.Log("UI Overloaded");
-            }
-
+            else 
+                MouseEventList.AppThreadList.CheckOverload();
 
         }
         protected virtual void ChugIdle()
         {
             Status.Instance.Tick();
         }
-        protected virtual void ChugEvents()
-        {
-            //if (DebugHalt)
-            //    return;
-
-            ChugList.IterateUIBreather(ChugEvent, Application.DoEvents);
-        }
-
-        protected virtual void ChugEvent(ListMember item)
-        {
-            ChugEvent((MouseEventArgs)item.Object);
-        }
-        protected virtual void ChugEvent(MouseEventArgs mouse)
-        {
-            if (mouse.Clicks > 0)
-                ContainerHost.Click(mouse);
-            else
-                ContainerHost.Move(mouse);
-        }
-
+        
         /// <summary>
         /// if not drawing direct to the screen
         /// </summary>
@@ -256,54 +246,6 @@ namespace CobbleApp
         public virtual bool EscapeConsume()
         {
             return false;
-        }
-        protected virtual void Form_MouseDown(object sender, MouseEventArgs e)
-        {
-        }
-
-        protected virtual void Form_MouseUp(object sender, MouseEventArgs e)
-        {
-        }
-
-        protected virtual void Form_MouseClick(object sender, MouseEventArgs e)
-        {
-            EventList.Add(e);
-        }
-
-        public virtual bool BlockMouse(MouseEventArgs e)
-        {
-            if (Busy)
-                return true;
-
-            return false;
-        }
-        protected virtual void Form_MouseMove(object sender, MouseEventArgs e)
-        {
-            var LastMoveEvent = e;// new MouseEvent(e);
-            if (BlockMouse(LastMoveEvent))
-            {
-                return;
-            }
-
-            if (ContainerHost.KeepMove(LastMoveEvent))
-            {
-                CollectMouseMove(LastMoveEvent);
-            }
-        }
-
-        public virtual void CollectMouseMove(MouseEventArgs e)
-        {
-            EventList.Add(e);
-        }
-
-        private void Form_ResizeEnd(object sender, EventArgs e)
-        {
-            ContainerHost.Resize();
-        }
-
-        protected virtual void Form_Refresh(object sender, EventArgs e)
-        {
-            DrawControls();
         }
     }
 }

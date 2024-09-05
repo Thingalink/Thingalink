@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2A6B6EA1-ADC1-4597-8B57-546C496A25DF}</ProjectGuid>
+    <ProjectGuid>{9C651D05-D9C0-47C3-A9B1-07FEB359331D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Thingalink</RootNamespace>
-    <AssemblyName>Thingalink</AssemblyName>
+    <RootNamespace>CobbleStorageJSON</RootNamespace>
+    <AssemblyName>CobbleStorageJSON</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -31,21 +31,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ListHead.cs" />
-    <Compile Include="ListMember.cs" />
-    <Compile Include="LoopSet.cs" />
-    <Compile Include="MeasuredText.cs" />
-    <Compile Include="Mote.cs" />
-    <Compile Include="Paint.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RandomAccess.cs" />
-    <Compile Include="ServiceList.cs" />
-    <Compile Include="Speck.cs" />
+    <Compile Include="StorageJSON.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CobbleApp\CobbleApp.csproj">
+      <Project>{f81f58e6-e97f-42b1-96d4-79dc9132f820}</Project>
+      <Name>CobbleApp</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

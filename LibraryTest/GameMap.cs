@@ -27,10 +27,10 @@ public class Region : GameClass
         {
             StarterRegion();
             //map.Region = this;
-            int w = RandomAccess.Next(0, Screen.W / divisorHight);
-            int h = RandomAccess.Next(Screen.H / divisorLow, Screen.H / divisorHight);
-            Focal = new Zone(RandomAccess.Next(w / 2, Screen.W / divisorHight),
-                RandomAccess.Next(Screen.H / divisorLow, Screen.H / divisorHight), w, h);
+            int w = RandomAccess.Next(0, Screen.Width / divisorHight);
+            int h = RandomAccess.Next(Screen.Height / divisorLow, Screen.Height / divisorHight);
+            Focal = new Zone(RandomAccess.Next(w / 2, Screen.Width / divisorHight),
+                RandomAccess.Next(Screen.Height / divisorLow, Screen.Height / divisorHight), w, h);
         }
         //else border from
     }

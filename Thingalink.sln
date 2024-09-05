@@ -16,6 +16,20 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CobbleApp", "CobbleApp\Cobb
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thingalink", "Thingalink\Thingalink.csproj", "{2A6B6EA1-ADC1-4597-8B57-546C496A25DF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CobblePaintBox", "CobblePaintBox\CobblePaintBox.csproj", "{7CBC5099-3328-437C-A71F-2BB5C2A90490}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2A6B6EA1-ADC1-4597-8B57-546C496A25DF} = {2A6B6EA1-ADC1-4597-8B57-546C496A25DF}
+		{F81F58E6-E97F-42B1-96D4-79DC9132F820} = {F81F58E6-E97F-42B1-96D4-79DC9132F820}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CobbleStorageJSON", "CobbleStorageJSON\CobbleStorageJSON.csproj", "{9C651D05-D9C0-47C3-A9B1-07FEB359331D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DrawAppTest", "DrawAppTest\DrawAppTest.csproj", "{27B1449D-16E0-4D9A-B84D-458288EC4A28}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2A6B6EA1-ADC1-4597-8B57-546C496A25DF} = {2A6B6EA1-ADC1-4597-8B57-546C496A25DF}
+		{F81F58E6-E97F-42B1-96D4-79DC9132F820} = {F81F58E6-E97F-42B1-96D4-79DC9132F820}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,6 +48,18 @@ Global
 		{2A6B6EA1-ADC1-4597-8B57-546C496A25DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A6B6EA1-ADC1-4597-8B57-546C496A25DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A6B6EA1-ADC1-4597-8B57-546C496A25DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CBC5099-3328-437C-A71F-2BB5C2A90490}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CBC5099-3328-437C-A71F-2BB5C2A90490}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CBC5099-3328-437C-A71F-2BB5C2A90490}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CBC5099-3328-437C-A71F-2BB5C2A90490}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C651D05-D9C0-47C3-A9B1-07FEB359331D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C651D05-D9C0-47C3-A9B1-07FEB359331D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C651D05-D9C0-47C3-A9B1-07FEB359331D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C651D05-D9C0-47C3-A9B1-07FEB359331D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27B1449D-16E0-4D9A-B84D-458288EC4A28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27B1449D-16E0-4D9A-B84D-458288EC4A28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27B1449D-16E0-4D9A-B84D-458288EC4A28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27B1449D-16E0-4D9A-B84D-458288EC4A28}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

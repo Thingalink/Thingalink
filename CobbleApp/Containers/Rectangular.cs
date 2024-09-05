@@ -7,24 +7,31 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CobbleApp
-{    public class Rectangular
+{    
+    public class Rectangular
     {
+        /// <summary>
+        /// Everything visual has a rectangle. a circle still fits in one
+        /// </summary>
         protected Rectangle Rect;
         public Rectangle Rectangle => Rect;
 
+
         public int X => Rectangle.X;
         public int Y => Rectangle.Y;
-        public int W => Rectangle.Width;
-        public int H => Rectangle.Height;
+        public int Width => Rectangle.Width;
+        public int Height => Rectangle.Height;
         public int Bottom => Rectangle.Bottom;
         public int Right => Rectangle.Right;
 
-        public int CenterX => X + ((int)W / 2);
-        public int CenterY => Y + ((int)H / 2);
+        //convenience items. frequently used calcs may be faster if stored on change
+        // (math vs mem acceess i dont actually know if it ever matters)
+        public int CenterX => X + ((int)Width / 2);
+        public int CenterY => Y + ((int)Height / 2);
         public int HalfX => X / 2;
         public int HalfY => Y / 2;
-        public int HalfW => W / 2;
-        public int HalfH => H / 2;
+        public int HalfW => Width / 2;
+        public int HalfH => Height / 2;
 
         public Rectangular(int x, int y, int w, int h) : this(new Rectangle(x, y, w, h))
         {
