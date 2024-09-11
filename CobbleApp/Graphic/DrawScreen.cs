@@ -3,6 +3,7 @@ using System.Windows.Forms;
 
 namespace CobbleApp
 {
+
     public class DrawScreen : DrawSurface
     {
         public static DrawScreen Instance;

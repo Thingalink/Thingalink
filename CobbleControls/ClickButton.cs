@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using CobbleApp;
 using Thingalink;
 
-namespace CobbleApp
+namespace CobbleControls
 {
     public class ClickButton : Zone
     {
@@ -15,7 +16,6 @@ namespace CobbleApp
 
         protected bool block;
 
-        protected TextTheme Theme => AppRoot.ToolText;
         public ClickButton(string prompt, Action action, int x, int y, int w, int h, ContainerZone parent = null, DrawSurface surface = null) : this(prompt, action, new Rectangle(x, y, w, h), parent, surface)
         {
         }
@@ -38,7 +38,7 @@ namespace CobbleApp
         protected virtual MeasuredText GetFont()
         {
             var t = new MeasuredText();
-            t.Font = Theme.Font;
+            t.Font = AppSingleton.FontsList.SelectedFont;
             t.Point = new Point(Rectangle.X, Rectangle.Y);
             return t;
         }
@@ -48,7 +48,7 @@ namespace CobbleApp
         }
         protected virtual Paint GetPaint()
         {
-            return Theme.Backcolor;
+            return AppSingleton.DefaultBackColor;
         }
 
         public override void Draw()
@@ -57,8 +57,8 @@ namespace CobbleApp
             //var p = Paint ?? GetPaint();
 
             Surface.FillRect(Paint, Rectangle);
-            Surface.DrawText(Text.Font, Theme.Textcolor, Text.Text, Text.Point);
-            Surface.Outline(Theme.Textcolor, Rectangle);
+            Surface.DrawText(Text.Font, AppSingleton.DefaultTextColor, Text.Text, Text.Point);
+            Surface.Outline(AppSingleton.DefaultTextColor, Rectangle);
         }
 
         public override void Click(MouseEventArgs point)
@@ -73,8 +73,8 @@ namespace CobbleApp
         }
         public virtual void ClickDo()
         {
-            Surface.FillRect(Theme.Backcolor, Rectangle);
-            Surface.DrawText(Text.Font, Theme.Textcolor, Text.Text, Text.Point);
+            Surface.FillRect(AppSingleton.DefaultBackColor, Rectangle);
+            Surface.DrawText(Text.Font, AppSingleton.DefaultTextColor, Text.Text, Text.Point);
 
             Action?.Invoke();
 

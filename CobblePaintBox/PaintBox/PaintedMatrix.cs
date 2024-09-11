@@ -1,4 +1,5 @@
 ﻿using CobbleApp;
+using CobbleControls;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -226,7 +227,7 @@ namespace CobblePaintBox
                     }
                 }
 
-                return Color.FromArgb(color.A, Thingalink.Paint.Conform(r), Thingalink.Paint.Conform(g), Thingalink.Paint.Conform(b));
+                return Color.FromArgb(color.A, ColorValue.Conform(r), ColorValue.Conform(g), ColorValue.Conform(b));
             }
 
             if (ColorMod())
@@ -252,7 +253,7 @@ namespace CobblePaintBox
 
             if (RollSheet.Setting.Blend)
             {
-                return Thingalink.Paint.AddTo(color, 255,
+                return CobbleApp.Paint.AddTo(color, 255,
                     LakeshoreConfig.Tword(color.R, r, .2),
                    LakeshoreConfig.Tword(color.G, g, .2),
                    LakeshoreConfig.Tword(color.B, b, .2));

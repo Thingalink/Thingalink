@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using CobbleApp;
 using Thingalink;
 
-namespace CobbleApp
+namespace CobbleControls
 {
     public class DragSelect : Zone// ToggleButton
     {
@@ -64,7 +65,7 @@ namespace CobbleApp
             Text.Text = prompt;
 
             //AppRoot.Instance.QueAction(SizeMe);
-            Text.Font = AppRoot.ToolText.Font;
+            Text.Font = AppSingleton.FontsList.SelectedFont;
             Text.Point = new Point(X + Width / 10, Y + (2 * Height / 5));
 
             Chunk = Height * .8f;
@@ -121,18 +122,18 @@ namespace CobbleApp
             //if (On)
             //    Surface.Outline(Text.Paint, Rectangle);
 
-            Surface.DrawText(Text.Font, AppRoot.ToolText.Textcolor, Text.Text, Text.Point.X, Y + 24);
+            Surface.DrawText(Text.Font, AppSingleton.DefaultTextColor, Text.Text, Text.Point.X, Y + 24);
 
-            Surface.DrawText(Text.Font, AppRoot.ToolText.Textcolor, ValueText, Text.Point.X, Text.Point.Y);// Text.Point.X + 30, Text.Point.Y);
+            Surface.DrawText(Text.Font, AppSingleton.DefaultTextColor, ValueText, Text.Point.X, Text.Point.Y);// Text.Point.X + 30, Text.Point.Y);
 
             int midX = 10 + X + Rectangle.Width / 2;
-            Surface.DrawText(Text.Font, AppRoot.ToolText.Textcolor, Range.ToString(), X + 4, TopT - 4);
-            Surface.DrawLine(AppRoot.ToolText.Textcolor, midX, TopT, Rectangle.Right, TopT);
+            Surface.DrawText(Text.Font, AppSingleton.DefaultTextColor, Range.ToString(), X + 4, TopT - 4);
+            Surface.DrawLine(AppSingleton.DefaultTextColor, midX, TopT, Rectangle.Right, TopT);
 
-            Surface.DrawText(Text.Font, AppRoot.ToolText.Textcolor, RangeLow.ToString(), X + 4, BottomT - 4);
-            Surface.DrawLine(AppRoot.ToolText.Textcolor, midX, BottomT, Rectangle.Right, BottomT);
+            Surface.DrawText(Text.Font, AppSingleton.DefaultTextColor, RangeLow.ToString(), X + 4, BottomT - 4);
+            Surface.DrawLine(AppSingleton.DefaultTextColor, midX, BottomT, Rectangle.Right, BottomT);
 
-            Surface.DrawLine(AppRoot.ToolText.Textcolor, X, last.Y, X + 4, last.Y);
+            Surface.DrawLine(AppSingleton.DefaultTextColor, X, last.Y, X + 4, last.Y);
             Update();
         }
         public void Update()
@@ -141,9 +142,9 @@ namespace CobbleApp
 
             Surface.FillRect(Back, TextValueZone);
 
-            Surface.DrawText(Text.Font, AppRoot.ToolText.Textcolor, ValueText, Text.Point.X, Text.Point.Y);
+            Surface.DrawText(Text.Font, AppSingleton.DefaultTextColor, ValueText, Text.Point.X, Text.Point.Y);
 
-            Surface.DrawLine(AppRoot.ToolText.Textcolor, X, last.Y, X + 4, last.Y);
+            Surface.DrawLine(AppSingleton.DefaultTextColor, X, last.Y, X + 4, last.Y);
 
         }
 

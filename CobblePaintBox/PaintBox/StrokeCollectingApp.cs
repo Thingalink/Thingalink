@@ -31,10 +31,8 @@ namespace CobblePaintBox
             Storage.Use(new StorageJSON());
         }
 
-        protected override void InitSysHandlers()
+        protected override void InitMouseHandler()
         {
-            SysEventHandlers = new ListHead();
-            SysEventHandlers.Add(new FormRefreshHandler());
             MouseStroke = new MouseStrokeCollector(ProcessStroke);
             SysEventHandlers.Add(MouseStroke);
         }

@@ -32,15 +32,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PaintBox\BrushedMatrix.cs" />
@@ -66,6 +59,10 @@
     <ProjectReference Include="..\CobbleApp\CobbleApp.csproj">
       <Project>{f81f58e6-e97f-42b1-96d4-79dc9132f820}</Project>
       <Name>CobbleApp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CobbleControls\CobbleControls.csproj">
+      <Project>{befa828e-3555-4626-a837-f001f13c7c86}</Project>
+      <Name>CobbleControls</Name>
     </ProjectReference>
     <ProjectReference Include="..\CobbleStorageJSON\CobbleStorageJSON.csproj">
       <Project>{9c651d05-d9c0-47c3-a9b1-07feb359331d}</Project>

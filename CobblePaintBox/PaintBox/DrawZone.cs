@@ -215,7 +215,7 @@ namespace CobblePaintBox
         {
 
             //empty frames will be transparent
-            DrawScreen.Instance.FillRect(AppRoot.ToolText.Textcolor, Rectangle);
+            DrawScreen.Instance.FillRect(AppSingleton.DefaultTextColor, Rectangle);
             Surface.Refresh();
 
             Updates = false;

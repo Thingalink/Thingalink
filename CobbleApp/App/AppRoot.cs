@@ -16,7 +16,8 @@ namespace CobbleApp
         public static Form Form;
         public static DrawScreen Screen;
 
-        public static TextTheme ToolText;
+        
+        public string FontName;
 
         public Bitmap BackgroundImage;
 
@@ -36,6 +37,11 @@ namespace CobbleApp
 
         public AppRoot(Form form)
         {
+            if (Instance != null)
+            {
+                //enoforced singleton
+                throw new System.Exception("Singleton Already Defined");
+            }
             Form = form;
             Instance = this;
 
@@ -52,11 +58,18 @@ namespace CobbleApp
         {
             Screen = new DrawScreen(Form);
 
+            InitSingleton();
+
             Form.FormClosing += Form_FormClosing;
 
             MouseEventList.AppThreadList = new MouseEventList();
-            InitSysHandlers();
 
+            SysEventHandlers = new ListHead();
+            InitRefreshHandler();
+            InitMouseHandler();
+
+            //other stuff not in base
+            InitSysHandlers();
 
             ContainerHost.SetHost(InitContainer());
 
@@ -64,12 +77,24 @@ namespace CobbleApp
             //DrawControls();
             InitAppLoader();
         }
+        protected virtual void InitSingleton()
+        {
+            new AppSingleton(Color.Black);
+            AppSingleton.DefaultBackColor = new Paint(Color.GhostWhite);
+        }
 
+        protected virtual void InitRefreshHandler()
+        {
+            SysEventHandlers.Add(new FormRefreshHandler());
+        }
+        
+        protected virtual void InitMouseHandler()
+        {
+            SysEventHandlers.Add(new MouseClickEventHandler());
+        }
         protected virtual void InitSysHandlers()
         {
-            SysEventHandlers = new ListHead();            
-            SysEventHandlers.Add(new FormRefreshHandler());
-            SysEventHandlers.Add(new MouseClickEventHandler());
+
         }
 
         public virtual void Sub()
@@ -97,8 +122,9 @@ namespace CobbleApp
 
         protected virtual void InitFonts()
         {
-            ToolText = new TextTheme(Screen.SizeFont("TestTextHowLongandsomemore", "Arial", 300, 30), Color.Black, Color.GhostWhite);
-            new Status(new Rectangle(Screen.Rectangle.X, Screen.Rectangle.Y, 250, Screen.Rectangle.Height), ToolText, 30, 100, 500, true);
+            AppSingleton.FontsList.Add(Screen.SizeFont("TestTextHowLongandsomemore", "Arial", 300, 30));
+            //ToolText = new TextTheme(Screen.SizeFont("TestTextHowLongandsomemore", "Arial", 300, 30), Color.Black, Color.GhostWhite);
+            new Status(new Rectangle(Screen.Rectangle.X, Screen.Rectangle.Y, 250, Screen.Rectangle.Height), 30, 100, 500, true);
         }
 
         private ContainerZone InitContainer()

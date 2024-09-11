@@ -1,8 +1,8 @@
 ﻿using CobbleApp;
+using CobbleControls;
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
-using Thingalink;
 
 namespace CobblePaintBox
 {
@@ -78,7 +78,7 @@ namespace CobblePaintBox
 
         public void DrawBack()
         {
-            DrawScreen.Instance.FillRect(AppRoot.ToolText.Textcolor, Rectangle);
+            DrawScreen.Instance.FillRect(AppSingleton.DefaultTextColor, Rectangle);
         }
         public void GoZoom()
         {

@@ -1,61 +1,12 @@
 ﻿using System.Drawing;
+using Thingalink;
 
-namespace Thingalink
+namespace CobbleApp
 {
-    //undefined visuality
-    public class PaintValue : Mote
-    {
-
-    }
-    
-    public class ColorValue : PaintValue
-    {
-        private new Color Value;
-        public Color Color => Value;
-        
-        //set requires brush clear(for change)
-        public virtual void Set(Color c)
-        {
-            //any override will still need base call
-            Value = c;
-        }
-        public void Set(int r, int g, int b)
-        {
-            Set(Color.FromArgb(Color.A, Conform(r), Conform(g), Conform(b)));
-        }
-        public void SetA(int a)
-        {
-            Set(Color.FromArgb(Conform(a), Color.R, Color.G, Color.B));
-        }
-        public void SetR(int r)
-        {
-            Set(Color.FromArgb(Color.A, Conform(r), Color.G, Color.B));
-        }
-        public void SetG(int g)
-        {
-            Set(Color.FromArgb(Color.A, Color.R, Conform(g), Color.B));
-        }
-        public void SetB(int b)
-        {
-            Set(Color.FromArgb(Color.A, Color.R, Color.G, Conform(b)));
-        }
-
-        public static int Conform(int v)
-        {
-            if (v < 0)
-            {
-                return 0;
-            }
-            if (v > 255)
-            {
-                return 255;
-            }
-            return v;
-        }
-    }
 
     /// <summary>
     /// provide pens and brushes for the windows
+    /// todo use dictionary for used brushes allow multiple paint variables of the same color to share resource
     /// </summary>
     public class Paint : ColorValue
     {
@@ -88,6 +39,7 @@ namespace Thingalink
         {
             if (Color.R > Color.G && Color.R >= Color.B)
                 return true;
+            //this tie breaker stuff is wonky.
             else if (Color.R == Color.G && Color.R == Color.B && RandomAccess.Percent(35))
                 return true;
             else

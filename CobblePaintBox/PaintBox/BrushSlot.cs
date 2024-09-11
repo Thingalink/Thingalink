@@ -1,6 +1,6 @@
 ﻿using CobbleApp;
+using CobbleControls;
 using System.Drawing;
-using System.Drawing.Imaging;
 using Thingalink;
 
 namespace CobblePaintBox
@@ -204,7 +204,7 @@ namespace CobblePaintBox
         }
         public override void Draw()
         {
-            Surface.FillRect(AppRoot.ToolText.Textcolor, Rectangle);
+            Surface.FillRect(AppSingleton.DefaultTextColor, Rectangle);
             base.Draw();
             if(Bitmap == null)
             {

@@ -34,16 +34,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppTest.cs" />
@@ -84,6 +76,10 @@
     <ProjectReference Include="..\CobbleApp\CobbleApp.csproj">
       <Project>{f81f58e6-e97f-42b1-96d4-79dc9132f820}</Project>
       <Name>CobbleApp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CobbleControls\CobbleControls.csproj">
+      <Project>{befa828e-3555-4626-a837-f001f13c7c86}</Project>
+      <Name>CobbleControls</Name>
     </ProjectReference>
     <ProjectReference Include="..\CobblePaintBox\CobblePaintBox.csproj">
       <Project>{7cbc5099-3328-437c-a71f-2bb5c2a90490}</Project>

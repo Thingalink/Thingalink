@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Drawing;
+using CobbleApp;
 using Thingalink;
 
-namespace CobbleApp
+namespace CobbleControls
 {
     
     public class ColorPicker : ContainerZone

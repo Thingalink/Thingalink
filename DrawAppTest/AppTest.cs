@@ -1,4 +1,5 @@
 ﻿using CobbleApp;
+using CobbleControls;
 using System.Windows.Forms;
 using CobblePaintBox;
 using Thingalink;
@@ -74,11 +75,11 @@ namespace DrawAppTest
 
             // DrawConfig.SplitSource = new IntValue();
             // DrawConfig.SplitSource.Set(1);
-            DrawConfig.SplitH = new DragSelect(ToolText.Backcolor, "SplitH", 2, ConfiChange, r, Spread);//, null, DrawConfig.SplitSource);
+            DrawConfig.SplitH = new DragSelect(AppSingleton.DefaultBackColor, "SplitH", 2, ConfiChange, r, Spread);//, null, DrawConfig.SplitSource);
             DrawConfig.SplitH.Range = 50;
             DrawConfig.SplitH.RangeLow = 0;
 
-            DrawConfig.MotorH = new DragSelect(ToolText.Backcolor, "MotorH", 2, ConfiChange, r, Movement);
+            DrawConfig.MotorH = new DragSelect(AppSingleton.DefaultBackColor, "MotorH", 2, ConfiChange, r, Movement);
             DrawConfig.MotorH.Range = 30;
             DrawConfig.MotorH.RangeLow = -30;
 
@@ -88,52 +89,52 @@ namespace DrawAppTest
 
             r = Shaper.NextLeft(DrawConfig.Blend, 2);
             //r = new Rectangle(DrawConfig.Blend.Rectangle.Right + 2, Toggles.Y + 2, 60, (Toggles.H / 2) - 4);
-            DrawConfig.ClickBlock = new DragSelect(ToolText.Backcolor, "Block", 3, ConfiChange, r, Brushes);//, mod: DrawZone.PeatMod);
+            DrawConfig.ClickBlock = new DragSelect(AppSingleton.DefaultBackColor, "Block", 3, ConfiChange, r, Brushes);//, mod: DrawZone.PeatMod);
             DrawConfig.ClickBlock.Range = 200;
             DrawConfig.ClickBlock.Set(0);
 
             r = Shaper.NextLeft(DrawConfig.ClickBlock, 2);
-            DrawConfig.Drill = new DragSelect(ToolText.Backcolor, "Drill", 2, ConfiChange, r, Brushes);//, null, DrawConfig.DeepSource);
+            DrawConfig.Drill = new DragSelect(AppSingleton.DefaultBackColor, "Drill", 2, ConfiChange, r, Brushes);//, null, DrawConfig.DeepSource);
             DrawConfig.Drill.Range = 400;
             DrawConfig.Drill.RangeLow = -400;
 
             r = Shaper.NextLeft(DrawConfig.Drill, 2);
-            DrawConfig.SpreadReRoll = new DragSelect(ToolText.Backcolor, "ReRoll", 2, ConfiChange, r, Brushes);
+            DrawConfig.SpreadReRoll = new DragSelect(AppSingleton.DefaultBackColor, "ReRoll", 2, ConfiChange, r, Brushes);
             DrawConfig.SpreadReRoll.Range = 100;
             DrawConfig.SpreadReRoll.RangeLow = 0;
 
             //
 
             r = Shaper.NextLeft(DrawConfig.SplitH, 2);
-            DrawConfig.SplitV = new DragSelect(ToolText.Backcolor, "SplitV", 2, ConfiChange, r, Spread);
+            DrawConfig.SplitV = new DragSelect(AppSingleton.DefaultBackColor, "SplitV", 2, ConfiChange, r, Spread);
             DrawConfig.SplitV.Range = 50;
             DrawConfig.SplitV.RangeLow = 0;
 
             r = Shaper.NextLeft(DrawConfig.SplitV, 2);
-            DrawConfig.Decay = new DragSelect(ToolText.Backcolor, "Decay", 2, ConfiChange, r, Spread);
+            DrawConfig.Decay = new DragSelect(AppSingleton.DefaultBackColor, "Decay", 2, ConfiChange, r, Spread);
             DrawConfig.Decay.Range = 90;
             DrawConfig.Decay.RangeLow = 0;
             DrawConfig.Decay.Set(0);
 
             r = Shaper.NextLeft(DrawConfig.Decay, 2);
-            DrawConfig.HBump = new DragSelect(ToolText.Backcolor, "HBump", 2, ConfiChange, r, Spread);
+            DrawConfig.HBump = new DragSelect(AppSingleton.DefaultBackColor, "HBump", 2, ConfiChange, r, Spread);
             DrawConfig.HBump.Range = 100;
             DrawConfig.HBump.RangeLow = 0;
 
             r = Shaper.NextLeft(DrawConfig.HBump, 2);
-            DrawConfig.VBump = new DragSelect(ToolText.Backcolor, "VBump", 2, ConfiChange, r, Spread);
+            DrawConfig.VBump = new DragSelect(AppSingleton.DefaultBackColor, "VBump", 2, ConfiChange, r, Spread);
             DrawConfig.VBump.Range = 100;
             DrawConfig.VBump.RangeLow = 0;
 
             r = Shaper.NextLeft(DrawConfig.VBump, 2);
-            DrawConfig.BumpDouble = new DragSelect(ToolText.Backcolor, "BumpX%", 2, ConfiChange, r, Spread);
+            DrawConfig.BumpDouble = new DragSelect(AppSingleton.DefaultBackColor, "BumpX%", 2, ConfiChange, r, Spread);
             DrawConfig.BumpDouble.Range = 100;
             DrawConfig.BumpDouble.RangeLow = 0;
 
 
             r = Shaper.NextLeft(DrawConfig.BumpDouble, 2);
 
-            DrawConfig.Sway = new DragSelect(ToolText.Backcolor, "Sway", 2, ConfiChange, r, Spread);
+            DrawConfig.Sway = new DragSelect(AppSingleton.DefaultBackColor, "Sway", 2, ConfiChange, r, Spread);
             DrawConfig.Sway.Range = 100;
             DrawConfig.Sway.RangeLow = 0;
 
@@ -143,20 +144,20 @@ namespace DrawAppTest
             //DrawConfig.Drill = new DragSelect(FineText.Backcolor, "Drill", 2, GoSwing, r, Toggles);//, null, DrawConfig.DeepSource);
             //DrawConfig.Drill.Range = 100;
             //DrawConfig.Drill.RangeLow = 0;
-            DrawConfig.Swing = new DragSelect(ToolText.Backcolor, "Swing", 2, ConfiChange, r, Spread);
+            DrawConfig.Swing = new DragSelect(AppSingleton.DefaultBackColor, "Swing", 2, ConfiChange, r, Spread);
             DrawConfig.Swing.Range = 100;
             DrawConfig.Swing.RangeLow = 0;
 
 
 
             r = Shaper.NextLeft(DrawConfig.Swing, 2);
-            DrawConfig.Shmear = new DragSelect(ToolText.Backcolor, "Shmear", 2, ConfiChange, r, Spread);
+            DrawConfig.Shmear = new DragSelect(AppSingleton.DefaultBackColor, "Shmear", 2, ConfiChange, r, Spread);
             DrawConfig.Shmear.Range = 100;
             DrawConfig.Shmear.RangeLow = 0;
 
 
             r = Shaper.NextLeft(DrawConfig.Shmear, 2);
-            DrawConfig.DShmear = new DragSelect(ToolText.Backcolor, "DShmear", 2, ConfiChange, r, Spread);
+            DrawConfig.DShmear = new DragSelect(AppSingleton.DefaultBackColor, "DShmear", 2, ConfiChange, r, Spread);
             DrawConfig.DShmear.Range = 100;
             DrawConfig.DShmear.RangeLow = 0;
 
@@ -164,27 +165,27 @@ namespace DrawAppTest
 
 
             r = Shaper.NextLeft(DrawConfig.MotorH, 2);
-            DrawConfig.MotorV = new DragSelect(ToolText.Backcolor, "MotorV", 2, ConfiChange, r, Movement);
+            DrawConfig.MotorV = new DragSelect(AppSingleton.DefaultBackColor, "MotorV", 2, ConfiChange, r, Movement);
             DrawConfig.MotorV.Range = 30;
             DrawConfig.MotorV.RangeLow = -30;
 
             r = Shaper.NextLeft(DrawConfig.MotorV, 2);
-            DrawConfig.MotorZig = new DragSelect(ToolText.Backcolor, "Zig%", 2, ConfiChange, r, Movement);
+            DrawConfig.MotorZig = new DragSelect(AppSingleton.DefaultBackColor, "Zig%", 2, ConfiChange, r, Movement);
             DrawConfig.MotorZig.Range = 100;
             DrawConfig.MotorZig.RangeLow = 0;
 
             r = Shaper.NextLeft(DrawConfig.MotorZig, 2);
-            DrawConfig.MotorZag = new DragSelect(ToolText.Backcolor, "Zag%", 2, ConfiChange, r, Movement);
+            DrawConfig.MotorZag = new DragSelect(AppSingleton.DefaultBackColor, "Zag%", 2, ConfiChange, r, Movement);
             DrawConfig.MotorZag.Range = 100;
             DrawConfig.MotorZag.RangeLow = 0;
 
             r = Shaper.NextLeft(DrawConfig.MotorZag, 2);
-            DrawConfig.MotorLurch = new DragSelect(ToolText.Backcolor, "Lurch", 2, ConfiChange, r, Movement);
+            DrawConfig.MotorLurch = new DragSelect(AppSingleton.DefaultBackColor, "Lurch", 2, ConfiChange, r, Movement);
             DrawConfig.MotorLurch.Range = 100;
             DrawConfig.MotorLurch.RangeLow = 0;
 
             r = Shaper.NextLeft(DrawConfig.MotorLurch, 2);
-            DrawConfig.MotorLurchX = new DragSelect(ToolText.Backcolor, "LurchX", 2, ConfiChange, r, Movement);
+            DrawConfig.MotorLurchX = new DragSelect(AppSingleton.DefaultBackColor, "LurchX", 2, ConfiChange, r, Movement);
             DrawConfig.MotorLurchX.Range = 7;
             DrawConfig.MotorLurchX.RangeLow = 0;
 
@@ -228,19 +229,19 @@ namespace DrawAppTest
 
             r = Shaper.NextLeft(DrawConfig.ModPush, 2);
 
-            DrawConfig.RFlat = new DragSelect(ToolText.Backcolor, "Push R", 2, ConfiChange, r, Tools);
+            DrawConfig.RFlat = new DragSelect(AppSingleton.DefaultBackColor, "Push R", 2, ConfiChange, r, Tools);
             DrawConfig.RFlat.Range = 5;
             DrawConfig.RFlat.RangeLow = -5;
             DrawConfig.RFlat.Set(0);
 
             r = Shaper.NextLeft(DrawConfig.RFlat, 2);
-            DrawConfig.GFlat = new DragSelect(ToolText.Backcolor, "Push G", 2, ConfiChange, r, Tools);
+            DrawConfig.GFlat = new DragSelect(AppSingleton.DefaultBackColor, "Push G", 2, ConfiChange, r, Tools);
             DrawConfig.GFlat.Range = 5;
             DrawConfig.GFlat.RangeLow = -5;
             DrawConfig.GFlat.Set(0);
 
             r = Shaper.NextLeft(DrawConfig.GFlat, 2);
-            DrawConfig.BFlat = new DragSelect(ToolText.Backcolor, "Push B", 2, ConfiChange, r, Tools);
+            DrawConfig.BFlat = new DragSelect(AppSingleton.DefaultBackColor, "Push B", 2, ConfiChange, r, Tools);
             DrawConfig.BFlat.Range = 5;
             DrawConfig.BFlat.RangeLow = -5;
             DrawConfig.BFlat.Set(0);
@@ -265,62 +266,62 @@ namespace DrawAppTest
 
             r = DrawConfig.Blend.Rectangle; // new Rectangle(DrawConfig.OverwriteMax.Rectangle.Right + 20, ColorPicker.Y + 10, 60, Tools.H - 4);
 
-            DrawConfig.Rmod = new DragSelect(ToolText.Backcolor, "Mod%", 3, ConfiChange, r, ColorMods);
+            DrawConfig.Rmod = new DragSelect(AppSingleton.DefaultBackColor, "Mod%", 3, ConfiChange, r, ColorMods);
             DrawConfig.Rmod.Range = 100;
             DrawConfig.Rmod.RangeLow = 0;
             DrawConfig.Rmod.Set(0);
 
             r = Shaper.NextLeft(DrawConfig.Rmod, 2);
-            DrawConfig.R = new DragSelect(ToolText.Backcolor, "Red", 3, ConfiChange, r, ColorMods);
+            DrawConfig.R = new DragSelect(AppSingleton.DefaultBackColor, "Red", 3, ConfiChange, r, ColorMods);
             DrawConfig.R.Range = 100;
             DrawConfig.R.RangeLow = -100;
             DrawConfig.R.Set(0);
 
             r = Shaper.NextLeft(DrawConfig.R, 2);
-            DrawConfig.Rswing = new DragSelect(ToolText.Backcolor, "Swing", 3, ConfiChange, r, ColorMods);
+            DrawConfig.Rswing = new DragSelect(AppSingleton.DefaultBackColor, "Swing", 3, ConfiChange, r, ColorMods);
             DrawConfig.Rswing.Range = 100;
             DrawConfig.Rswing.RangeLow = 0;
             DrawConfig.Rswing.Set(100);
 
 
             r = Shaper.NextLeft(DrawConfig.Rswing, 2);
-            DrawConfig.Gmod = new DragSelect(ToolText.Backcolor, "Mod%", 3, ConfiChange, r, ColorMods);
+            DrawConfig.Gmod = new DragSelect(AppSingleton.DefaultBackColor, "Mod%", 3, ConfiChange, r, ColorMods);
             DrawConfig.Gmod.Range = 100;
             DrawConfig.Gmod.RangeLow = 0;
             DrawConfig.Gmod.Set(0);
 
             r = Shaper.NextLeft(DrawConfig.Gmod, 2);
-            DrawConfig.G = new DragSelect(ToolText.Backcolor, "Green", 3, ConfiChange, r, ColorMods);
+            DrawConfig.G = new DragSelect(AppSingleton.DefaultBackColor, "Green", 3, ConfiChange, r, ColorMods);
             DrawConfig.G.Range = 100;
             DrawConfig.G.RangeLow = -100;
             DrawConfig.G.Set(0);
 
             r = Shaper.NextLeft(DrawConfig.G, 2);
-            DrawConfig.Gswing = new DragSelect(ToolText.Backcolor, "Swing", 3, ConfiChange, r, ColorMods);
+            DrawConfig.Gswing = new DragSelect(AppSingleton.DefaultBackColor, "Swing", 3, ConfiChange, r, ColorMods);
             DrawConfig.Gswing.Range = 100;
             DrawConfig.Gswing.RangeLow = 0;
             DrawConfig.Gswing.Set(100);
 
             r = Shaper.NextLeft(DrawConfig.Gswing, 2);
-            DrawConfig.Bmod = new DragSelect(ToolText.Backcolor, "Mod%", 3, ConfiChange, r, ColorMods);
+            DrawConfig.Bmod = new DragSelect(AppSingleton.DefaultBackColor, "Mod%", 3, ConfiChange, r, ColorMods);
             DrawConfig.Bmod.Range = 100;
             DrawConfig.Bmod.RangeLow = 0;
             DrawConfig.Bmod.Set(0);
 
             r = Shaper.NextLeft(DrawConfig.Bmod, 2);
-            DrawConfig.B = new DragSelect(ToolText.Backcolor, "Blue", 3, ConfiChange, r, ColorMods);
+            DrawConfig.B = new DragSelect(AppSingleton.DefaultBackColor, "Blue", 3, ConfiChange, r, ColorMods);
             DrawConfig.B.Range = 100;
             DrawConfig.B.RangeLow = -100;
             DrawConfig.B.Set(0);
 
             r = Shaper.NextLeft(DrawConfig.B, 2);
-            DrawConfig.Bswing = new DragSelect(ToolText.Backcolor, "Swing", 3, ConfiChange, r, ColorMods);
+            DrawConfig.Bswing = new DragSelect(AppSingleton.DefaultBackColor, "Swing", 3, ConfiChange, r, ColorMods);
             DrawConfig.Bswing.Range = 100;
             DrawConfig.Bswing.RangeLow = 0;
             DrawConfig.Bswing.Set(100);
 
             r = Shaper.NextLeft(DrawConfig.Bswing, 2);
-            DrawConfig.CModReRoll = new DragSelect(ToolText.Backcolor, "ReRoll", 3, ConfiChange, r, ColorMods);
+            DrawConfig.CModReRoll = new DragSelect(AppSingleton.DefaultBackColor, "ReRoll", 3, ConfiChange, r, ColorMods);
             DrawConfig.CModReRoll.Range = 100;
             DrawConfig.CModReRoll.RangeLow = 0;
             DrawConfig.CModReRoll.Set(0);

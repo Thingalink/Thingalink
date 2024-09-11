@@ -2,6 +2,13 @@
 
 namespace Thingalink
 {
+    /// <summary>
+    /// not trying to replace collections.generic. if you want indexed acess then you have it already
+    /// was addicted to linq and Lists<ofType> found awkward clarity and maintenance issues. 
+    /// this doesnt require the extensive type casting that happens with list<slooksgenericbutisstillatype> 
+    /// there are usage patterns solved by having a consistent type(ListMember) for the container
+    /// yes todo the double isn't always used. there should be a single link option first. yea maybe it is just Ienumberable
+    /// </summary>
     public class ListHead
     {
         public delegate void ListMethod(ListMember item);

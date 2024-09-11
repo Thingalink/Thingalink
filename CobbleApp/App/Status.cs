@@ -31,8 +31,8 @@ namespace CobbleApp
         public double Minstay;
         public DateTime LastShow;
 
-        protected TextTheme Theme;
-        public TextTheme TextTheme => Theme;
+        public Paint TextColor => AppSingleton.DefaultTextColor;
+        public Font Font;
 
         // protected Font Erase;
         protected Paint Transparent;
@@ -52,7 +52,7 @@ namespace CobbleApp
 
         protected ListMember Deleted;
 
-        public Status(Rectangle rect, TextTheme font, int lines, double maxfill, double minstay, bool visible, Action post = null) : base(rect, null, new BitmapSurface(rect))
+        public Status(Rectangle rect, int lines, double maxfill, double minstay, bool visible, Action post = null) : base(rect, null, new BitmapSurface(rect))
         {
             if (Status.Instance == null)
                 Instance = this;
@@ -72,25 +72,7 @@ namespace CobbleApp
             int h = rect.Height / lines;
             int y = rect.Y;
 
-            if (font == null)
-                Theme = new TextTheme(null, Color.Black, Color.Gainsboro);
-            else
-                Theme = font;
-
-            if (Theme.Textcolor == null)
-            {
-                Theme.Textcolor = new Paint(Color.Black);
-            }
-            if (Theme.Backcolor == null)
-            {
-                Theme.Backcolor = new Paint(Color.Gainsboro);
-            }
-
-            if (Theme.Font == null)
-            {
-                Theme.Font = Surface.SizeFont("Wider than it is tall and longer", "Arial", rect.Width, h);
-                //    Erase = Surface.SizeFont("Wider than it is tall and longer and longer", "Arial", rect.Width, (int)(h * 1.2));
-            }
+            Font = Surface.SizeFont("Wider than it is tall and longer", "Arial", rect.Width, h);
 
             while (y + h < rect.Bottom)
             {
@@ -164,7 +146,7 @@ namespace CobbleApp
 
         public void ShowSay(ListMember item)
         {
-            Surface.DrawText(Theme.Font, Theme.Textcolor, (string)item.Object, AtR.X, AtR.Y);
+            Surface.DrawText(Font, TextColor, (string)item.Object, AtR.X, AtR.Y);
             At = At.Next;
         }
 
@@ -221,7 +203,7 @@ namespace CobbleApp
             if (At == null)
                 return;
 
-            Surface.DrawText(Theme.Font, Theme.Textcolor, text, AtR.X, AtR.Y);
+            Surface.DrawText(Font, TextColor, text, AtR.X, AtR.Y);
 
             At = At.Next;
         }
@@ -273,7 +255,7 @@ namespace CobbleApp
 
                 Text.Add(text);
 
-                Surface.DrawText(Theme.Font, Theme.Textcolor, text, AtR.X, AtR.Y);
+                Surface.DrawText(Font, TextColor, text, AtR.X, AtR.Y);
                 Surface.Refresh();
 
                 At = At.Next;
@@ -330,7 +312,7 @@ namespace CobbleApp
             {
                 return;
             }
-            Surface.DrawText(Theme.Font, Theme.Textcolor, (string)item.Object, AtR.X, AtR.Y);
+            Surface.DrawText(Font, TextColor, (string)item.Object, AtR.X, AtR.Y);
             At = At.Next;
 
         }
