@@ -35,7 +35,7 @@ namespace CobbleStorageJSON
             }
         }
 
-        public override void SaveConfig<T>(string file, T classT)
+        public override void SaveFile<T>(string file, T classT)
         {
             var s = JsonHelper.FromClass<T>(classT);
 
@@ -44,7 +44,7 @@ namespace CobbleStorageJSON
                 outputFile.WriteLine(s);
             }
         }
-        public override T OpenConfig<T>(string file)
+        public override T OpenFile<T>(string file)
         {
             using (StreamReader outputFile = new StreamReader(file))
             {

@@ -47,14 +47,14 @@ namespace CobblePaintBox
                 PathStroke = Path + ConfigFile.ToString("D4") + "_" + DrawConfig.Drill.Value.ToString("D3");
                 Directory.CreateDirectory(PathStroke);
 
-                Storage.SaveConfig<DrawConfigSetting>(PathStroke + "\\DrawConfig.txt", setting);
+                Storage.SaveFile<DrawConfigSetting>(PathStroke + "\\DrawConfig.txt", setting);
 
                 ConfigFile++;
                 ConfigChange = false;
             }
 
             var stroke = new BrushStroke(ConfigFile, strokeList);
-            Storage.SaveConfig<BrushStroke>(PathStroke + "\\Stroke" + strokeID.ToString("D4") + ".txt", stroke);
+            Storage.SaveFile<BrushStroke>(PathStroke + "\\Stroke" + strokeID.ToString("D4") + ".txt", stroke);
 
 
             MouseEventList.AppThreadList.AppendEvents(strokeList);

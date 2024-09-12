@@ -10,7 +10,7 @@ public class GameClass
     public AppRoot App => AppRoot.Instance;
 
     public DrawScreen Screen => AppRoot.Screen;
-    public TextTheme Font => AppRoot.ToolText;
+   // public TextTheme Font => AppRoot.ToolText;
 
     public static GameMap Map;
 }

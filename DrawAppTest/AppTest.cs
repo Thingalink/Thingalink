@@ -411,7 +411,7 @@ namespace DrawAppTest
             var setting = new DrawConfigSetting();
             setting.Save();
 
-            Storage.SaveConfig<DrawConfigSetting>("C:\\SlabState\\Settings\\DrawConfig.txt", setting);
+            Storage.SaveFile<DrawConfigSetting>("C:\\SlabState\\Settings\\DrawConfig.txt", setting);
             //var s = JsonHelper.FromClass<DrawConfigSetting>(setting);
 
             //using (StreamWriter outputFile = new StreamWriter("C:\\SlabState\\Settings\\DrawConfig.txt"))
@@ -431,7 +431,7 @@ namespace DrawAppTest
 
 
 
-            settings = Storage.OpenConfig<DrawConfigSetting>("C:\\SlabState\\Settings\\DrawConfig.txt");
+            settings = Storage.OpenFile<DrawConfigSetting>("C:\\SlabState\\Settings\\DrawConfig.txt");
 
             settings.Load();
             MenuBar.Draw();
