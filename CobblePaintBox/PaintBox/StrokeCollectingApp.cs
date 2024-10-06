@@ -24,13 +24,17 @@ namespace CobblePaintBox
         public int ConfigFile;
         public bool ConfigChange = true;
         public MouseStrokeCollector MouseStroke;
+        public DrawConfigSetting Settings;
 
-        public StrokeCollectingApp(Form form, string path ) : base(form)
+        public StrokeCollectingApp(Form form) : base(form)
         {
-            Path = path;
             Storage.Use(new StorageJSON());
         }
 
+        public void SetStrokePath(string path)
+        {
+            Path = path;
+        }
         protected override void InitMouseHandler()
         {
             MouseStroke = new MouseStrokeCollector(ProcessStroke);
@@ -44,10 +48,12 @@ namespace CobblePaintBox
                 var setting = new DrawConfigSetting();
                 setting.Save();
 
-                PathStroke = Path + ConfigFile.ToString("D4") + "_" + DrawConfig.Drill.Value.ToString("D3");
+                PathStroke = Path + "\\" + ConfigFile.ToString("D4") + "_" + DrawConfig.Drill.Value.ToString("D3");
                 Directory.CreateDirectory(PathStroke);
 
                 Storage.SaveFile<DrawConfigSetting>(PathStroke + "\\DrawConfig.txt", setting);
+                //keep a current 
+                Storage.SaveFile<DrawConfigSetting>(Path + "\\DrawConfig.txt", setting);
 
                 ConfigFile++;
                 ConfigChange = false;
@@ -59,7 +65,25 @@ namespace CobblePaintBox
 
             MouseEventList.AppThreadList.AppendEvents(strokeList);
         }
-                        
+        
+        public DrawConfigSetting Load(int fileId, int depth = 0)
+        {
+            PathStroke = Path + fileId.ToString("D4") + "_" + depth.ToString("D3");
+
+            return Storage.OpenFile<DrawConfigSetting>(PathStroke + "\\DrawConfig.txt");
+        }
+        public void FetchNewest()
+        {
+            Settings = Storage.OpenFile<DrawConfigSetting>(Path + "\\DrawConfig.txt");
+        }
+        public DrawConfigSetting FetchDrawConfig(string path)
+        {
+            return Storage.OpenFile<DrawConfigSetting>(path + "\\DrawConfig.txt");
+        }
+        public BrushStroke FetchStroke(string path)
+        {
+            return Storage.OpenFile<BrushStroke>(path);
+        }
 
         protected virtual void ConfiChange()
         {

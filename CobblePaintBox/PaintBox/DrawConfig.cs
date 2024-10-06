@@ -238,7 +238,10 @@ namespace CobblePaintBox
             DrawConfig.MotorLurchX.Set(MotorLurchX);
             DrawConfig.Wrap.On = Wrap;
 
-            DrawConfig.SelectedPaint = new Paint(ColorA, ColorR, ColorG, ColorB);
+            //a new paint object breaks the colorpickers ref
+            //DrawConfig.SelectedPaint = new Paint(ColorA, ColorR, ColorG, ColorB);
+            DrawConfig.SelectedPaint.SetA(ColorA);
+            DrawConfig.SelectedPaint.Set(ColorR, ColorG, ColorB);
             DrawConfig.Push.On = Push;
             DrawConfig.ModPush.On = ModPush;
 

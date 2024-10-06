@@ -1,12 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Thingalink
 {
     /// <summary>
     /// not trying to replace collections.generic. if you want indexed acess then you have it already
-    /// was addicted to linq and Lists<ofType> found awkward clarity and maintenance issues. 
-    /// this doesnt require the extensive type casting that happens with list<slooksgenericbutisstillatype> 
-    /// there are usage patterns solved by having a consistent type(ListMember) for the container
+    /// was addicted to linq and Lists<ofType> found awkward clarity and maintenance issues.     
+    /// LinkedList<looksgenericbutisstillatype> still needs compatible code that requirs your references to correspeond compatibly.
+    /// the old reflection issue just relocated. The point of this class and ListMember is to have consistant item containers.
+    /// there are usage patterns solved by having the List handler not need to know the type being passed
+    /// the casting still happens but it happens in the object that knows what type is expected in the container rather than the passer
+    /// the consuming modules provides the handler for the object so that the list owner need only source data and and deliver it as post office
+    /// end result is easy binding code where the metadata is passed into the objects that consume it without the passer needing awareness
     /// yes todo the double isn't always used. there should be a single link option first. yea maybe it is just Ienumberable
     /// </summary>
     public class ListHead
@@ -29,6 +34,34 @@ namespace Thingalink
             First = copy.First;
             Last = copy.Last;
 
+        }
+
+        /// <summary>
+        /// the links structure doesn't serialize normal. still need conversion 
+        /// </summary>
+        /// <returns></returns>
+        public List<object> ExportCollection()
+        {
+            var l = new List<object>();
+            First.Nextecute(AddToList, l);
+            return l;
+        }
+
+        protected void AddToList(ListMember thing, object list)
+        {
+            ((List<object>)list).Add(thing.Object);
+        }
+
+        /// <summary>
+        /// the links structure doesn't serialize normal. still need conversion 
+        /// </summary>
+        /// <returns></returns>
+        public void ImportCollection(List<object> l)
+        {
+            foreach(var item in l)
+            {
+                Add(item);
+            }
         }
 
         public virtual ListMember At(int index)

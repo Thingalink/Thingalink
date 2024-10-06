@@ -6,12 +6,35 @@ using Thingalink;
 using RandomAccess = Thingalink.RandomAccess;
 using System.Drawing;
 using System;
+using System.IO;
+using System.Collections.Generic;
 
 namespace DrawAppTest
 {
+    public class UserDirectory
+    {
+        public string Path;
+
+        public UserDirectory()
+        {
+            Path = Application.CommonAppDataPath;
+
+        }
+    }
+    public class ProjectList
+    {
+        public static string SelectedProjectPath;
+
+        public ListHead Projects;
+        public ProjectList()
+        { 
+            Projects = new ListHead();
+        }
+         
+    }
     class AppTest : StrokeCollectingApp
     {
-        protected UserConfig UserConfig;
+        protected UserConfig UserConfig => AppSingleton.UserConfig;
         MenuBar MenuBar;
         protected ContainerZone Frames;
         protected ContainerZone Toggles;
@@ -28,9 +51,126 @@ namespace DrawAppTest
 
         BrushSlotBar SlotBar;
 
-        public AppTest(Form form) : base(form, "C:\\SlabState\\Settings\\")
+        public AppTest(Form form) : base(form)//"C:\\SlabState\\Settings\\")
         {
-            UserConfig = Storage.OpenConfig("C:\\SlabState\\Gut\\Source.txt");
+        }
+        protected override void InitUserConfig()
+        {
+            //installation folder does not need to be folder for output
+            UserConfig config;
+
+            var path = Directory.GetCurrentDirectory();
+            string file = "\\Source.txt";
+            if (!File.Exists(path + file))
+            {
+                string userfolder;
+
+                using (var fbd = new FolderBrowserDialog())
+                {
+                    DialogResult result = fbd.ShowDialog();
+
+                    if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                    {
+                        userfolder = fbd.SelectedPath;
+                    }
+                    else
+                    {
+                        userfolder = path + "\\UserData";
+                        if (!Directory.Exists(userfolder))
+                        {
+                            Directory.CreateDirectory(userfolder);
+                        }
+                    }
+
+
+                }
+
+                config = new UserConfig(userfolder, false);
+                Storage.SaveConfig(path + file, config);
+            }
+            else
+                config = Storage.OpenConfig(path + file);
+
+            AppSingleton.LoadConfig(config);
+
+            file = "\\Projects.txt";
+            string selectedProject = "";
+            if (File.Exists(AppSingleton.UserConfig.Path + file))
+            {
+                List<object> l = Storage.OpenFile<List<object>>(AppSingleton.UserConfig.Path + file);
+                //todo leaving this for now as there is no project create or select it is placeholder
+                if (l.Count > 0)
+                    selectedProject = "\\" + l[0].ToString();
+            }
+            else
+                selectedProject = "\\Default";
+
+            path = AppSingleton.UserConfig.Path + "\\Projects";
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            ProjectList.SelectedProjectPath = path + selectedProject;
+
+            SetStrokePath(ProjectList.SelectedProjectPath);
+
+            if (!Directory.Exists(ProjectList.SelectedProjectPath))
+            {
+                InitProject(ProjectList.SelectedProjectPath);
+            }
+            else
+            {
+                LoadProject();
+            }
+        }
+        protected void InitProject(string name)
+        {
+            Directory.CreateDirectory(name);
+            Settings = new DrawConfigSetting();
+            DrawConfig.SelectedPaint = new Paint(RandomAccess.RandomColor());
+        }
+
+        protected void LoadProject()
+        {
+            FetchNewest();
+            DrawConfig.SelectedPaint = new Paint(Settings.ColorA, Settings.ColorR, Settings.ColorG, Settings.ColorB);
+
+        }
+        protected void ProjectRedraw()
+        {
+            string lastfolder = null;
+            string lastfile = null;
+
+            foreach (var folder in Directory.EnumerateDirectories(ProjectList.SelectedProjectPath))
+            {
+                var settings = FetchDrawConfig(folder);
+                settings?.Load();
+
+                foreach (var file in Directory.EnumerateFiles(folder))
+                {
+                    if(file.EndsWith("DrawConfig.txt"))
+                    {
+                        continue;
+                    }
+
+                    var stroke = FetchStroke(file);
+                    foreach(var point in stroke.Points)
+                    {
+                        DrawConfig.Matrix.Click(point);
+                    }
+
+                    lastfile = file;
+                }
+
+                lastfolder = folder;
+            }
+
+            if (lastfile != null)
+            {
+                MouseStroke.SetID(int.Parse(lastfile.Substring(lastfile.Length - 8, 4)));
+                ConfigFile = int.Parse(lastfolder.Substring(lastfolder.Length - 8, 4));
+            }
+
         }
 
         //protected override BitmapSplash InitSplash()
@@ -58,6 +198,9 @@ namespace DrawAppTest
 
 
             InitToggles();
+
+            Settings.Load();
+            ProjectRedraw();
 
         }
         protected void InitToggles()
@@ -208,7 +351,7 @@ namespace DrawAppTest
 
         protected void InitToolbar()
         {
-            DrawConfig.SelectedPaint = new Paint(RandomAccess.RandomColor());
+            //DrawConfig.SelectedPaint = new Paint(RandomAccess.RandomColor());
             ColorPicker = new ColorPicker(ref DrawConfig.SelectedPaint, new Rectangle(Tools.X + 2, Tools.Y + 2, 250, 120), Tools, action: ConfiChange);
 
             //ColorPicker.Draw();
@@ -406,20 +549,6 @@ namespace DrawAppTest
             Status.Log("Loader Ready");
         }
 
-        protected void SaveConfig()
-        {
-            var setting = new DrawConfigSetting();
-            setting.Save();
-
-            Storage.SaveFile<DrawConfigSetting>("C:\\SlabState\\Settings\\DrawConfig.txt", setting);
-            //var s = JsonHelper.FromClass<DrawConfigSetting>(setting);
-
-            //using (StreamWriter outputFile = new StreamWriter("C:\\SlabState\\Settings\\DrawConfig.txt"))
-            //{
-            //    outputFile.WriteLine(s);
-            //}
-
-        }
         protected void LoadConfig()
         {
             DrawConfigSetting settings;
@@ -436,37 +565,7 @@ namespace DrawAppTest
             settings.Load();
             MenuBar.Draw();
         }
-        //protected override void FramesSub()
-        //{
-        //    DrawConfig.Jump?.MoveSub();
-
-
-        // //   DrawConfig.OverwriteMin.MoveSub();
-        //  //  DrawConfig.OverwriteMax.MoveSub();
-
-
-        //    DrawConfig.R?.MoveSub();
-        //    DrawConfig.G?.MoveSub();
-        //    DrawConfig.B?.MoveSub();
-        //    DrawConfig.Rmod?.MoveSub();
-        //    DrawConfig.Gmod?.MoveSub();
-        //    DrawConfig.Bmod?.MoveSub();
-        //    DrawConfig.Rswing?.MoveSub();
-        //    DrawConfig.Gswing?.MoveSub();
-        //    DrawConfig.Bswing?.MoveSub();
-        //    DrawConfig.RRadial?.MoveSub();
-        //    DrawConfig.GRadial?.MoveSub();
-        //    DrawConfig.BRadial?.MoveSub();
-        //   // ColorPicker.MoveSub();
-        //    DrawConfig.RFlat?.MoveSub();
-        //    DrawConfig.GFlat?.MoveSub();
-        //    DrawConfig.BFlat?.MoveSub();
-
-        //    DrawConfig.SpreadReRoll?.MoveSub();
-        //    DrawConfig.CModReRoll?.MoveSub();
-
-        //}
-
+       
         protected override void SurfaceRefresh()
         {
             if (Loader.Done && ContainerHost.Zone == Frames)

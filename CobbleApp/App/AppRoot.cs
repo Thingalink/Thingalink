@@ -5,6 +5,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using Thingalink;
 using System.Runtime.Remoting.Messaging;
 using System.Diagnostics;
+using System.IO;
 
 namespace CobbleApp
 {
@@ -59,6 +60,7 @@ namespace CobbleApp
             Screen = new DrawScreen(Form);
 
             InitSingleton();
+            InitUserConfig();
 
             Form.FormClosing += Form_FormClosing;
 
@@ -81,6 +83,11 @@ namespace CobbleApp
         {
             new AppSingleton(Color.Black);
             AppSingleton.DefaultBackColor = new Paint(Color.GhostWhite);
+        }
+
+        protected virtual void InitUserConfig()
+        {
+            AppSingleton.LoadConfig(new UserConfig(Directory.GetCurrentDirectory(), false));
         }
 
         protected virtual void InitRefreshHandler()

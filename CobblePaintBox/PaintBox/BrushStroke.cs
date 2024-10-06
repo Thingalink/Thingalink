@@ -16,7 +16,7 @@ namespace CobblePaintBox
             Config = config;
             Drill = DrawConfig.Drill.Value;
             Points = new List<Point>();
-            list.Iterate(Add);
+            list?.Iterate(Add);
 
         }
 

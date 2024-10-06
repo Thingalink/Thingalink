@@ -27,6 +27,11 @@ namespace CobbleApp
             AppRoot.Form.MouseMove += Form_MouseMove;
         }
 
+        public void SetID(int strokeID)
+        {
+            this.StrokeID = strokeID;
+        }
+
         protected override void Form_MouseMove(object sender, MouseEventArgs e)
         {
             var LastMoveEvent = e;

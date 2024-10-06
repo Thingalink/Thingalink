@@ -13,6 +13,10 @@ namespace CobbleApp
         private static FontsList fontsList;
         public static FontsList FontsList => fontsList;
 
+        private static UserConfig userConfig;
+        public static UserConfig UserConfig => userConfig;
+        //later tobe files list
+
         public AppSingleton(Color defaultColor, int thick = 2) 
         {
             if (paintsList != null)
@@ -25,6 +29,11 @@ namespace CobbleApp
             DefaultTextColor = PaintsList.SelectedPaint;
 
            fontsList = new FontsList();
+        }
+
+        public static void LoadConfig(UserConfig file)
+        {
+            userConfig = file;
         }
     }
     
