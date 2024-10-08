@@ -21,7 +21,6 @@ class AppTest : AppRoot
 
     protected override void LoadControls()
     {
-        GameMap.Map = new GameMap();
         Bodies.Add(Map);
         //ShowControls();
     }

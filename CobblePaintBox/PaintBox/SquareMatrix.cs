@@ -35,7 +35,6 @@ namespace CobblePaintBox
         public bool RowFlop;
         Cell Last;
         int deep;
-        int depth;
         public bool Updates;
 
         protected bool InitColor;
@@ -66,7 +65,6 @@ namespace CobblePaintBox
 
 
             deep = Rectangle.Width / 9;
-            depth = 1;
 
             if (initialCells == 0)
             {
@@ -198,8 +196,6 @@ namespace CobblePaintBox
             NewMade(MakeSouth((Cell)item.Object));
 
             RowX += CellW;
-            Column = Column;//.Next?.Cast.ReferenceList;
-
         }
         public Cell MakeSouth(Cell c)
         {
@@ -425,7 +421,6 @@ namespace CobblePaintBox
         public void LoadScale(Bitmap image, int target, bool alpha = true, bool paintCells = true)
         {
             ryes = true;
-            row1 = true;
 
             if (Rectangle.Width == image.Width * 2 && Rectangle.Height == image.Height * 2)
             {
@@ -674,7 +669,6 @@ namespace CobblePaintBox
             //BitmapSurface.Unlock();
 
         }
-        bool row1;
         bool col1;
         bool ryes;
         bool cyes;
@@ -683,7 +677,6 @@ namespace CobblePaintBox
             cyes = true;
             col1 = true;
             ((ListHead)item.Object).Iterate(ColumnLoop);
-            row1 = false;
             ryes = !ryes;
         }
         void ColumnLoop(ListMember item)
@@ -759,7 +752,6 @@ namespace CobblePaintBox
             cyes = true;
             col1 = true;
             ((ListHead)item.Object).Iterate(ColumnLoop3);
-            row1 = false;
             ryes = !ryes;
         }
 
@@ -877,7 +869,6 @@ namespace CobblePaintBox
             image.UnlockBits(imageData);
 
             int row = 0;
-            int column = 0;
             ListMember RowItem = Rows.First;
             ListHead Row = (ListHead)RowItem.Object;
             ListMember CellItem = Row.First;
@@ -911,7 +902,6 @@ namespace CobblePaintBox
                     }
                     row = 0;
                     Row = (ListHead)RowItem.Object;
-                    column = 0;
                     CellItem = Row.First;
                     if (CellItem == null)
                     {

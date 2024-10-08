@@ -58,7 +58,6 @@ namespace CobblePaintBox
             RollSheet = new ModRollSheet(point, 0);
             base.Click(point);
         }
-        bool Eraser;
 
         public bool CheckOver(Cell c)
         {

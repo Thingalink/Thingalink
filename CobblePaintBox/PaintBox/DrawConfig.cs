@@ -1,5 +1,6 @@
 ﻿using CobbleApp;
 using CobbleControls;
+using System.Drawing;
 using Thingalink;
 
 namespace CobblePaintBox
@@ -98,6 +99,7 @@ namespace CobblePaintBox
     {
         public bool Blend;
         public bool Solid;
+        public Bitmap ImageBrush;
         public int SplitH;
         public int MotorH;
         public int ClickBlock;

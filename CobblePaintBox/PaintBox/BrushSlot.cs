@@ -13,8 +13,6 @@ namespace CobblePaintBox
 
         public DrawnBrush Bitmap;
         public ListHead Slots;
-        //Bitmap Selectme;
-        DragSelect RepeatBlock;
 
         Rectangle SlotArea;
 
@@ -41,10 +39,7 @@ namespace CobblePaintBox
             var r = new Rectangle(Rectangle.X, ButtonArea.Bottom, side, side);// Shaper.SplitFar(Rectangle, false, true, 4);
 
 
-            //Selectme = new BitmapValue();
-            //Selectme = new Bitmap(r.Width, r.Height, PixelFormat.Format32bppArgb);
-
-            Bitmap = new DrawnBrush(ref Zoom, r, this, RepeatBlock);
+            Bitmap = new DrawnBrush(ref Zoom, r, this, null);
 
             //Selectme.SetBitmap(Bitmap.Surface.Bitmap);
 

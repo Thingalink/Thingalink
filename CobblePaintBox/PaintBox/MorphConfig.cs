@@ -40,11 +40,11 @@ namespace CobblePaintBox
             {
                 return Mod2(cell);
             }
-            else if (RandomAccess.Percent(Pct3))
+            else if (Mod3 != null && RandomAccess.Percent(Pct3))
             {
                 return Mod3(cell);
             }
-            else if (RandomAccess.Percent(Pct4))
+            else if (Mod4 != null && RandomAccess.Percent(Pct4))
             {
                 return Mod4(cell);
             }
@@ -59,19 +59,18 @@ namespace CobblePaintBox
         public CellMod ModRoll;
         public CellMod Mod1;
         public CellMod Mod2;
-        public CellMod Mod3;
-        public CellMod Mod4;
+        public CellMod Mod3 = null;
+        public CellMod Mod4 = null;
         public CellPaintMod ModElse;
 
-        public PaintMod Whiter;
-        public PaintMod Blacker;
-        public PaintMod Reder;
-        public PaintMod Greener;
-        public PaintMod Bluer;
-        public PaintMod Purpler;
-        public PaintMod Oranger;
-        public PaintMod Yellower;
-
+        //public PaintMod Whiter;
+        //public PaintMod Blacker;
+        //public PaintMod Reder;
+        //public PaintMod Greener;
+        //public PaintMod Bluer;
+        //public PaintMod Purpler;
+        //public PaintMod Oranger;
+        //public PaintMod Yellower;
     }
 
     class LakeshoreConfig
@@ -88,6 +87,7 @@ namespace CobblePaintBox
 
             Config.Exclude = Cellection;
             Config.Select = CellAction;
+            Config.Pct0 = 0;
             Config.Pct1 = 20;
             Config.Pct2 = 14;
             Config.Pct3 = 1;
@@ -220,8 +220,6 @@ namespace CobblePaintBox
 
             //    return true;
             //}
-
-            return false;
         }
 
 
