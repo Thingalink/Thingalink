@@ -86,10 +86,12 @@ namespace Thingalink
         public void MakeFirst(ListMember item)
         {
             First = item;
+            ManagedCount = item == null ? 0 : 1;
             item?.SetPrevious(null);
             while(item?.Next != null)
             {
                 item = item.Next;
+                ManagedCount++;
             }
             Last = item;
         }
